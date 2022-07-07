@@ -3,11 +3,13 @@
 // Description:   keyboard_controll for 4_wheel_car
 // Author:        Loren
 // Modifications:
+// 1. add IMU sensor at 2022.7.7
 
 // webots头文件
 #include <iostream>
-#include <webots/Keyboard.hpp>  // 键盘控制
-#include <webots/Motor.hpp>
+#include <webots/InertialUnit.hpp>  // IMU
+#include <webots/Keyboard.hpp>      // 键盘控制
+#include <webots/Motor.hpp>         // 电机
 #include <webots/Robot.hpp>
 
 //所有 webots 类都定义在“webots”命名空间中
@@ -24,6 +26,11 @@ int main(int argc, char **argv) {
   //创建键盘控制对象并启动
   Keyboard keyboard_controll;
   keyboard_controll.enable(c_time_step);
+
+  // 创建IMU对象
+  InertialUnit *imu;
+  imu = robot->getInertialUnit("imu");
+  imu->enable(c_time_step);
 
   //创建底盘电机对象并初始化
   Motor *wheels[4];
@@ -94,6 +101,16 @@ int main(int argc, char **argv) {
       wheels[3]->setVelocity(rightSpeed);
     } else {
     }
+
+    // 读取IMU数据
+    // auto roll = imu->getRollPitchYaw()[0];   // x
+    // auto pitch = imu->getRollPitchYaw()[1];  // y
+    auto yaw = imu->getRollPitchYaw()[2];  // z
+
+    // cout << "IMU roll: " << roll << endl
+    //      << "IMU pitch: " << pitch << endl
+    //      << "IMU yaw: " << yaw << endl;
+    cout << "IMU yaw: " << yaw << endl;  // car only. Unit: rad.
   }
   delete robot;  //程序结束，释放内存
   return 0;

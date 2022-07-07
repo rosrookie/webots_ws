@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.11248742986409282 0.21365628838514655 -0.9704110307266987 0.9941719139233208
-  position -0.9276574384736442 1.5462814312359123 0.9815503723372033
+  orientation -0.3209607305644638 0.5939979201193653 0.7376656968636903 1.264421703452295
+  position -1.6398180761368866 -2.799159549891364 3.779739785689448
 }
 TexturedBackground {
 }
@@ -18,24 +18,21 @@ Robot {
     InertialUnit {
       children [
         Solid {
-          translation 0 0 0.03
           children [
-            DEF IMU Shape {
+            Shape {
               appearance Appearance {
                 material Material {
                   diffuseColor 1 1 1
                 }
               }
               geometry Box {
-                size 0.02 0.02 0.02
+                size 0.02 0.02 0.1
               }
             }
           ]
-          name "IMU"
-          boundingObject USE IMU
         }
       ]
-      name "IMU"
+      name "imu"
     }
     HingeJoint {
       jointParameters HingeJointParameters {
